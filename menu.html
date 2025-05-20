@@ -1,0 +1,558 @@
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bella Cucina - Menu Interactif</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Raleway', sans-serif;
+            background-color: #f8f5f2;
+        }
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        .category-tab.active {
+            border-bottom: 3px solid #8b5cf6;
+            color: #4c1d95;
+        }
+        .food-item {
+            transition: all 0.3s ease;
+        }
+        .food-item:hover {
+            transform: translateY(-5px);
+        }
+        .color-indicator {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .summary-item {
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .addon-option {
+            transition: all 0.2s ease;
+        }
+        .addon-option:hover {
+            background-color: #f3f4f6;
+        }
+        .addon-option.selected {
+            background-color: #e9d5ff;
+            border-color: #8b5cf6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-4 py-8 max-w-5xl">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-purple-900 mb-2">Bella Cucina</h1>
+            <p class="text-lg text-gray-600 italic">Créez votre propre expérience culinaire italienne</p>
+        </header>
+
+        <!-- Menu Categories -->
+        <div class="flex justify-center mb-8 border-b border-gray-200 overflow-x-auto">
+            <button class="category-tab active px-6 py-3 text-lg font-medium focus:outline-none" data-category="appetizers">Apéritifs</button>
+            <button class="category-tab px-6 py-3 text-lg font-medium focus:outline-none" data-category="pasta">Pâtes</button>
+            <button class="category-tab px-6 py-3 text-lg font-medium focus:outline-none" data-category="desserts">Desserts</button>
+        </div>
+
+        <!-- Menu Items Container -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <!-- Appetizers Section -->
+            <div id="appetizers" class="menu-section col-span-full">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="food-item bg-white p-6 rounded-lg shadow-md border-l-4 border-yellow-400">
+                        <div class="flex items-center mb-3">
+                            <span class="color-indicator bg-yellow-400"></span>
+                            <h3 class="text-xl font-semibold">Bruschetta Classica</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Tomates fraîches, basilic, ail et huile d'olive sur pain grillé</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-purple-800 font-medium">8 €</span>
+                            <button class="add-item px-4 py-2 bg-purple-100 text-purple-800 rounded-full hover:bg-purple-200 transition" 
+                                data-name="Bruschetta Classica" 
+                                data-price="8" 
+                                data-category="appetizers">
+                                Ajouter
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="food-item bg-white p-6 rounded-lg shadow-md border-l-4 border-green-400">
+                        <div class="flex items-center mb-3">
+                            <span class="color-indicator bg-green-400"></span>
+                            <h3 class="text-xl font-semibold">Arancini</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Boulettes de risotto frites farcies au fromage et sauce tomate</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-purple-800 font-medium">10 €</span>
+                            <button class="add-item px-4 py-2 bg-purple-100 text-purple-800 rounded-full hover:bg-purple-200 transition" 
+                                data-name="Arancini" 
+                                data-price="10" 
+                                data-category="appetizers">
+                                Ajouter
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="food-item bg-white p-6 rounded-lg shadow-md border-l-4 border-red-400">
+                        <div class="flex items-center mb-3">
+                            <span class="color-indicator bg-red-400"></span>
+                            <h3 class="text-xl font-semibold">Antipasto Misto</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Sélection de charcuteries, fromages, olives et légumes marinés</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-purple-800 font-medium">12 €</span>
+                            <button class="add-item px-4 py-2 bg-purple-100 text-purple-800 rounded-full hover:bg-purple-200 transition" 
+                                data-name="Antipasto Misto" 
+                                data-price="12" 
+                                data-category="appetizers">
+                                Ajouter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pasta Section -->
+            <div id="pasta" class="menu-section col-span-full hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="food-item bg-white p-6 rounded-lg shadow-md border-l-4 border-amber-600">
+                        <div class="flex items-center mb-3">
+                            <span class="color-indicator bg-amber-600"></span>
+                            <h3 class="text-xl font-semibold">Spaghetti Pomodoro</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Sauce tomate fraîche, basilic et huile d'olive</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-purple-800 font-medium">14 €</span>
+                            <button class="add-item px-4 py-2 bg-purple-100 text-purple-800 rounded-full hover:bg-purple-200 transition" 
+                                data-name="Spaghetti Pomodoro" 
+                                data-price="14" 
+                                data-category="pasta"
+                                data-customizable="true">
+                                Personnaliser
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="food-item bg-white p-6 rounded-lg shadow-md border-l-4 border-yellow-600">
+                        <div class="flex items-center mb-3">
+                            <span class="color-indicator bg-yellow-600"></span>
+                            <h3 class="text-xl font-semibold">Fettuccine Alfredo</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Sauce crémeuse au parmesan et beurre</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-purple-800 font-medium">16 €</span>
+                            <button class="add-item px-4 py-2 bg-purple-100 text-purple-800 rounded-full hover:bg-purple-200 transition" 
+                                data-name="Fettuccine Alfredo" 
+                                data-price="16" 
+                                data-category="pasta"
+                                data-customizable="true">
+                                Personnaliser
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="food-item bg-white p-6 rounded-lg shadow-md border-l-4 border-orange-600">
+                        <div class="flex items-center mb-3">
+                            <span class="color-indicator bg-orange-600"></span>
+                            <h3 class="text-xl font-semibold">Penne all'Arrabbiata</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Sauce tomate épicée, ail et persil</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-purple-800 font-medium">15 €</span>
+                            <button class="add-item px-4 py-2 bg-purple-100 text-purple-800 rounded-full hover:bg-purple-200 transition" 
+                                data-name="Penne all'Arrabbiata" 
+                                data-price="15" 
+                                data-category="pasta"
+                                data-customizable="true">
+                                Personnaliser
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="food-item bg-white p-6 rounded-lg shadow-md border-l-4 border-green-700">
+                        <div class="flex items-center mb-3">
+                            <span class="color-indicator bg-green-700"></span>
+                            <h3 class="text-xl font-semibold">Tagliatelle al Pesto</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Sauce au basilic frais, pignons de pin et parmesan</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-purple-800 font-medium">18 €</span>
+                            <button class="add-item px-4 py-2 bg-purple-100 text-purple-800 rounded-full hover:bg-purple-200 transition" 
+                                data-name="Tagliatelle al Pesto" 
+                                data-price="18" 
+                                data-category="pasta"
+                                data-customizable="true">
+                                Personnaliser
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desserts Section -->
+            <div id="desserts" class="menu-section col-span-full hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="food-item bg-white p-6 rounded-lg shadow-md border-l-4 border-yellow-300">
+                        <div class="flex items-center mb-3">
+                            <span class="color-indicator bg-yellow-300"></span>
+                            <h3 class="text-xl font-semibold">Tiramisu</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Biscuits imbibés de café, mascarpone et cacao</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-purple-800 font-medium">7 €</span>
+                            <button class="add-item px-4 py-2 bg-purple-100 text-purple-800 rounded-full hover:bg-purple-200 transition" 
+                                data-name="Tiramisu" 
+                                data-price="7" 
+                                data-category="desserts">
+                                Ajouter
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="food-item bg-white p-6 rounded-lg shadow-md border-l-4 border-red-300">
+                        <div class="flex items-center mb-3">
+                            <span class="color-indicator bg-red-300"></span>
+                            <h3 class="text-xl font-semibold">Panna Cotta</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Crème vanillée avec coulis de fruits rouges</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-purple-800 font-medium">6 €</span>
+                            <button class="add-item px-4 py-2 bg-purple-100 text-purple-800 rounded-full hover:bg-purple-200 transition" 
+                                data-name="Panna Cotta" 
+                                data-price="6" 
+                                data-category="desserts">
+                                Ajouter
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="food-item bg-white p-6 rounded-lg shadow-md border-l-4 border-brown-400">
+                        <div class="flex items-center mb-3">
+                            <span class="color-indicator bg-amber-800"></span>
+                            <h3 class="text-xl font-semibold">Cannoli Siciliani</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Tubes croustillants garnis de crème de ricotta et pépites de chocolat</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-purple-800 font-medium">9 €</span>
+                            <button class="add-item px-4 py-2 bg-purple-100 text-purple-800 rounded-full hover:bg-purple-200 transition" 
+                                data-name="Cannoli Siciliani" 
+                                data-price="9" 
+                                data-category="desserts">
+                                Ajouter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customization Modal -->
+        <div id="customizationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white rounded-lg p-6 max-w-md w-full max-h-[90vh] overflow-y-auto">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold" id="modalItemName">Personnaliser votre plat</h3>
+                    <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="font-medium text-gray-700 mb-2">Choisissez votre protéine</h4>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="addon-option border rounded-lg p-3 cursor-pointer" data-addon="Poulet" data-price="3">
+                            <div class="flex justify-between">
+                                <span>Poulet</span>
+                                <span>+3 €</span>
+                            </div>
+                        </div>
+                        <div class="addon-option border rounded-lg p-3 cursor-pointer" data-addon="Crevettes" data-price="4">
+                            <div class="flex justify-between">
+                                <span>Crevettes</span>
+                                <span>+4 €</span>
+                            </div>
+                        </div>
+                        <div class="addon-option border rounded-lg p-3 cursor-pointer" data-addon="Bœuf" data-price="4">
+                            <div class="flex justify-between">
+                                <span>Bœuf</span>
+                                <span>+4 €</span>
+                            </div>
+                        </div>
+                        <div class="addon-option border rounded-lg p-3 cursor-pointer" data-addon="Légumes" data-price="2">
+                            <div class="flex justify-between">
+                                <span>Légumes</span>
+                                <span>+2 €</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="font-medium text-gray-700 mb-2">Extras</h4>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="addon-option border rounded-lg p-3 cursor-pointer" data-addon="Champignons" data-price="1.5">
+                            <div class="flex justify-between">
+                                <span>Champignons</span>
+                                <span>+1.5 €</span>
+                            </div>
+                        </div>
+                        <div class="addon-option border rounded-lg p-3 cursor-pointer" data-addon="Fromage" data-price="2">
+                            <div class="flex justify-between">
+                                <span>Fromage</span>
+                                <span>+2 €</span>
+                            </div>
+                        </div>
+                        <div class="addon-option border rounded-lg p-3 cursor-pointer" data-addon="Olives" data-price="1">
+                            <div class="flex justify-between">
+                                <span>Olives</span>
+                                <span>+1 €</span>
+                            </div>
+                        </div>
+                        <div class="addon-option border rounded-lg p-3 cursor-pointer" data-addon="Piments" data-price="1">
+                            <div class="flex justify-between">
+                                <span>Piments</span>
+                                <span>+1 €</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="font-medium text-gray-700 mb-2">Niveau d'épice</h4>
+                    <div class="flex space-x-2">
+                        <button class="spice-level px-4 py-2 border rounded-full" data-level="Doux">Doux</button>
+                        <button class="spice-level px-4 py-2 border rounded-full" data-level="Moyen">Moyen</button>
+                        <button class="spice-level px-4 py-2 border rounded-full" data-level="Épicé">Épicé</button>
+                    </div>
+                </div>
+                
+                <div class="flex justify-between items-center mt-6">
+                    <div>
+                        <span class="text-gray-600">Prix total:</span>
+                        <span class="text-purple-800 font-bold text-xl ml-2" id="modalTotalPrice">14 €</span>
+                    </div>
+                    <button id="addCustomItem" class="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
+                        Ajouter au panier
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-purple-900">Votre commande</h2>
+            <div id="orderItems" class="mb-4 min-h-[100px]">
+                <p class="text-gray-500 italic text-center py-8">Votre panier est vide</p>
+            </div>
+            <div class="flex justify-between items-center pt-4 border-t border-gray-200">
+                <span class="text-xl font-medium">Total</span>
+                <span class="text-2xl font-bold text-purple-900" id="orderTotal">0 €</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables
+            let order = [];
+            let currentItem = {};
+            let selectedAddons = [];
+            let selectedSpiceLevel = "";
+            let basePrice = 0;
+            
+            // DOM Elements
+            const categoryTabs = document.querySelectorAll('.category-tab');
+            const menuSections = document.querySelectorAll('.menu-section');
+            const addItemButtons = document.querySelectorAll('.add-item');
+            const customizationModal = document.getElementById('customizationModal');
+            const closeModalButton = document.getElementById('closeModal');
+            const modalItemName = document.getElementById('modalItemName');
+            const modalTotalPrice = document.getElementById('modalTotalPrice');
+            const addCustomItemButton = document.getElementById('addCustomItem');
+            const addonOptions = document.querySelectorAll('.addon-option');
+            const spiceLevelButtons = document.querySelectorAll('.spice-level');
+            const orderItemsContainer = document.getElementById('orderItems');
+            const orderTotalElement = document.getElementById('orderTotal');
+            
+            // Event Listeners
+            categoryTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs
+                    categoryTabs.forEach(t => t.classList.remove('active'));
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    
+                    // Hide all menu sections
+                    menuSections.forEach(section => section.classList.add('hidden'));
+                    
+                    // Show the selected menu section
+                    const categoryId = tab.getAttribute('data-category');
+                    document.getElementById(categoryId).classList.remove('hidden');
+                });
+            });
+            
+            addItemButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const name = button.getAttribute('data-name');
+                    const price = parseFloat(button.getAttribute('data-price'));
+                    const category = button.getAttribute('data-category');
+                    const isCustomizable = button.getAttribute('data-customizable') === 'true';
+                    
+                    if (isCustomizable) {
+                        // Open customization modal
+                        currentItem = { name, price, category };
+                        basePrice = price;
+                        openCustomizationModal(name, price);
+                    } else {
+                        // Add item directly to order
+                        addToOrder({ name, price, category });
+                    }
+                });
+            });
+            
+            closeModalButton.addEventListener('click', () => {
+                customizationModal.classList.add('hidden');
+                resetCustomizations();
+            });
+            
+            addonOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    option.classList.toggle('selected');
+                    updateModalPrice();
+                });
+            });
+            
+            spiceLevelButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    spiceLevelButtons.forEach(b => b.classList.remove('bg-purple-600', 'text-white'));
+                    button.classList.add('bg-purple-600', 'text-white');
+                    selectedSpiceLevel = button.getAttribute('data-level');
+                });
+            });
+            
+            addCustomItemButton.addEventListener('click', () => {
+                const selectedAddons = Array.from(document.querySelectorAll('.addon-option.selected')).map(option => {
+                    return {
+                        name: option.getAttribute('data-addon'),
+                        price: parseFloat(option.getAttribute('data-price'))
+                    };
+                });
+                
+                const customItem = {
+                    ...currentItem,
+                    addons: selectedAddons,
+                    spiceLevel: selectedSpiceLevel,
+                    totalPrice: calculateTotalPrice()
+                };
+                
+                addToOrder(customItem);
+                customizationModal.classList.add('hidden');
+                resetCustomizations();
+            });
+            
+            // Functions
+            function openCustomizationModal(name, price) {
+                modalItemName.textContent = `Personnaliser: ${name}`;
+                modalTotalPrice.textContent = `${price} €`;
+                customizationModal.classList.remove('hidden');
+            }
+            
+            function resetCustomizations() {
+                addonOptions.forEach(option => option.classList.remove('selected'));
+                spiceLevelButtons.forEach(button => button.classList.remove('bg-purple-600', 'text-white'));
+                selectedSpiceLevel = "";
+                selectedAddons = [];
+            }
+            
+            function updateModalPrice() {
+                const totalPrice = calculateTotalPrice();
+                modalTotalPrice.textContent = `${totalPrice} €`;
+            }
+            
+            function calculateTotalPrice() {
+                let total = basePrice;
+                document.querySelectorAll('.addon-option.selected').forEach(option => {
+                    total += parseFloat(option.getAttribute('data-price'));
+                });
+                return total;
+            }
+            
+            function addToOrder(item) {
+                // Add unique ID to item
+                item.id = Date.now();
+                order.push(item);
+                updateOrderSummary();
+            }
+            
+            function removeFromOrder(itemId) {
+                order = order.filter(item => item.id !== itemId);
+                updateOrderSummary();
+            }
+            
+            function updateOrderSummary() {
+                if (order.length === 0) {
+                    orderItemsContainer.innerHTML = '<p class="text-gray-500 italic text-center py-8">Votre panier est vide</p>';
+                    orderTotalElement.textContent = '0 €';
+                    return;
+                }
+                
+                let html = '';
+                let total = 0;
+                
+                order.forEach(item => {
+                    const itemPrice = item.totalPrice || item.price;
+                    total += itemPrice;
+                    
+                    html += `
+                        <div class="summary-item flex justify-between items-start py-2 border-b border-gray-100">
+                            <div>
+                                <h4 class="font-medium">${item.name}</h4>
+                                ${item.addons && item.addons.length > 0 ? 
+                                    `<ul class="text-sm text-gray-600 ml-4 mt-1">
+                                        ${item.addons.map(addon => `<li>+ ${addon.name} (${addon.price} €)</li>`).join('')}
+                                    </ul>` : ''}
+                                ${item.spiceLevel ? `<p class="text-sm text-gray-600 ml-4">Épice: ${item.spiceLevel}</p>` : ''}
+                            </div>
+                            <div class="flex items-center">
+                                <span class="font-medium mr-4">${itemPrice} €</span>
+                                <button class="remove-item text-red-500 hover:text-red-700" data-id="${item.id}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                orderItemsContainer.innerHTML = html;
+                orderTotalElement.textContent = `${total} €`;
+                
+                // Add event listeners to remove buttons
+                document.querySelectorAll('.remove-item').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const itemId = parseInt(button.getAttribute('data-id'));
+                        removeFromOrder(itemId);
+                    });
+                });
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9429f3245677a44f',t:'MTc0NzcyNDM1MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
